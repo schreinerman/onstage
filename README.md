@@ -4,7 +4,7 @@
  ![Demonstration](https://github.com/schreinerman/onstage/raw/master/video/demonstration.gif)
  
 
-The base is an "ON STAGE" LED sign powered by 2x AA 1.5V batteries. The connection has to be changed, so it matches to the following schematic:
+The base is an "ON STAGE" LED sign powered by 2x AA 1.5V batteries. The connection of the LED sign has to be changed, so it matches to the following schematic:
 ![Schematic](https://github.com/schreinerman/onstage/raw/master/schematic/schematic.png)
 
 Connect to the HM-10 module via serial converter with 9600,8,N,1. (some configurations are 115200 baud)
