@@ -19,4 +19,6 @@ AT+PIO20 // turn off the PIO2 GPIO, so LED will turned off
 AT+PIO21 // turn on the PIO2 GPIO, so LED will turned on
 ```
 
+The project is using some BLE routines for the Swift BleOnStageLib of this project: https://github.com/jnross/Bluetility
+
 See also a good tutorial on HM-10 at following webpage: http://esp32-server.de/hm-10/
