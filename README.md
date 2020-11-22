@@ -1,5 +1,5 @@
-# onstage
- Switch a ON STAGE sign on/off via BLE HM-10 module
+# ON STAGE
+ Switch an "ON STAGE" LED sign on/off via BLE HM-10 module
 
 The base is an "ON STAGE" LED sign powered by 2x AA 1.5V batteries. The connection has to be changed, so it maches to the following schematic:
 ![Schematic](https://github.com/schreinerman/onstage/raw/master/schematic/schematic.png)
