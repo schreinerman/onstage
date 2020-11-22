@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ON_STAGE" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="offstage" translatesAutoresizingMaskIntoConstraints="NO" id="0ZG-gC-rn7">
+                                <rect key="frame" x="20" y="64" width="374" height="374"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0ZG-gC-rn7" secondAttribute="height" multiplier="1:1" id="p3L-aM-PxQ"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHW-wi-SZO">
+                                <rect key="frame" x="87" y="448" width="240" height="80"/>
+                                <subviews>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" title="Enable ON STAGE" translatesAutoresizingMaskIntoConstraints="NO" id="gsR-GU-ysd">
+                                        <rect key="frame" x="10" y="24.5" width="51" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="49" id="Z3k-Rw-kfP"/>
+                                            <constraint firstAttribute="height" constant="31" id="jvo-nr-908"/>
+                                            <constraint firstAttribute="width" constant="49" id="kUq-cs-3i8"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="lJ3-sG-O2D"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="onStageEnable_Changed:" destination="BYZ-38-t0r" eventType="valueChanged" id="8p2-hk-1SF"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable ON STAGE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OyB-rg-ZUL">
+                                        <rect key="frame" x="81" y="29.5" width="137" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="6ZP-bD-opv"/>
+                                            <constraint firstAttribute="width" constant="137" id="Jt4-Zf-PSE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="8FK-9v-swS"/>
+                                    <constraint firstItem="gsR-GU-ysd" firstAttribute="centerY" secondItem="IHW-wi-SZO" secondAttribute="centerY" id="AKQ-SF-Y9c"/>
+                                    <constraint firstAttribute="width" constant="240" id="OZB-9S-25N"/>
+                                    <constraint firstItem="gsR-GU-ysd" firstAttribute="leading" secondItem="IHW-wi-SZO" secondAttribute="leading" constant="10" id="ZGG-wL-MUd"/>
+                                    <constraint firstItem="OyB-rg-ZUL" firstAttribute="leading" secondItem="gsR-GU-ysd" secondAttribute="trailing" constant="22" id="naA-js-l5C"/>
+                                    <constraint firstItem="OyB-rg-ZUL" firstAttribute="centerY" secondItem="IHW-wi-SZO" secondAttribute="centerY" id="zyb-Cp-4VL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IHW-wi-SZO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="K9W-5o-cMC"/>
+                            <constraint firstItem="0ZG-gC-rn7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="gUd-iv-Q0z"/>
+                            <constraint firstItem="0ZG-gC-rn7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="iIw-YF-psj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0ZG-gC-rn7" secondAttribute="trailing" constant="20" id="ilK-Tc-r2s"/>
+                            <constraint firstItem="IHW-wi-SZO" firstAttribute="top" secondItem="0ZG-gC-rn7" secondAttribute="bottom" constant="10" id="uQn-BC-xOv"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="onStageEnable" destination="gsR-GU-ysd" id="gVn-XF-QN5"/>
+                        <outlet property="onStageImage" destination="0ZG-gC-rn7" id="Zaz-aM-Hr1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="99.776785714285708"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="offstage" width="1024" height="1024"/>
+    </resources>
+</document>
