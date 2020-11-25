@@ -8,85 +8,6 @@
 
 import Foundation
 import CoreBluetooth
-
-public enum OnStageState
-{
-    case on,off
-}
-
-public protocol OnStageDeviceDelegate
-{
-    func onStage(didUpdatedState state:Bool)
-}
-
-public class OnStageDevice:HM10Device
-{
-    private var _lastState:OnStageState = .off
-    
-    private var _state:OnStageState = .off
-    
-    public var delegate:OnStageDeviceDelegate?
-        
-    public var state:OnStageState
-    {
-        set
-        {
-            _state = newValue
-            stateUpdated()
-        }
-        get
-        {
-            return _lastState
-        }
-    }
-    
-    override public init() {
-        super.init()
-        DispatchQueue.main.async {
-            self.atCommand.GetGpio(io:2,completion: self.dataRead)
-        }
-    }
-    
-    func dataSent(response:Data)
-    {
-        _lastState = _state
-    }
-    
-    func dataRead(io:Int,state:Bool)
-    {
-        if (io == 2)
-        {
-            if (state)
-            {
-                _state = .on
-            } else
-            {
-                _state = .off
-            }
-            _lastState = _state
-        }
-        delegate?.onStage(didUpdatedState: state)
-    }
-    
-    func stateUpdated()
-    {
-        if (_state == .on)
-        {
-            DispatchQueue.main.async {
-                self.atCommand.SetGpio(io:2,level:true,completion: self.dataSent)
-                //self.sendCommand(commandString: "AT+PIO21",completion: self.dataSent)
-            }
-        } else
-        {
-            DispatchQueue.main.async {
-                self.atCommand.SetGpio(io:2,level:false,completion: self.dataSent)
-                //self.sendCommand(commandString: "AT+PIO20",completion: self.dataSent)
-            }
-        }
-    }
-}
-
-/*
 #if os(iOS)
     import UIKit
 #endif
@@ -326,5 +247,4 @@ extension OnStageDevice : DeviceDelegate {
         }
     }
 }
- */
 

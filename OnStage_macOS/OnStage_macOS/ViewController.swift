@@ -9,7 +9,20 @@
 import Cocoa
 import BleOnStageLib
 
-class ViewController: NSViewController {
+class ViewController: NSViewController,OnStageDeviceDelegate {
+    func onStage(didUpdatedState state: Bool) {
+        DispatchQueue.main.async(execute: {
+            self.lastStatus = state
+            if (state)
+            {
+                self.onStageButton.state = .on
+            } else
+            {
+                self.onStageButton.state = .off
+            }
+        })
+    }
+    
 
     @IBOutlet weak var onStageButton: NSButton!
     @IBOutlet weak var onStageImage: NSImageView!
@@ -32,7 +45,7 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        onStageDev.delegate = self
         blinkTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(blinkTimer_Update), userInfo: nil, repeats: true)
         
         // Do any additional setup after loading the view.

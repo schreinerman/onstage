@@ -15,6 +15,10 @@
 		324B520625685A350039CD9C /* Swift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324B520225685A350039CD9C /* Swift+Extensions.swift */; };
 		324B520725685A350039CD9C /* CBPeripheral+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324B520325685A350039CD9C /* CBPeripheral+Extension.swift */; };
 		324B520825685A350039CD9C /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324B51FF25685A350039CD9C /* Device.swift */; };
+		32D60CFA256EF7B500B430AE /* HM10Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D60CF9256EF7B500B430AE /* HM10Device.swift */; };
+		32D60D00256F070600B430AE /* AT_PIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D60CFF256F070600B430AE /* AT_PIO.swift */; };
+		32D60D02256F0B4900B430AE /* AT_BAUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D60D01256F0B4900B430AE /* AT_BAUD.swift */; };
+		32D60D04256F154100B430AE /* AT_ADC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D60D03256F154100B430AE /* AT_ADC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +43,10 @@
 		324B520125685A350039CD9C /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		324B520225685A350039CD9C /* Swift+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Extensions.swift"; sourceTree = "<group>"; };
 		324B520325685A350039CD9C /* CBPeripheral+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CBPeripheral+Extension.swift"; sourceTree = "<group>"; };
+		32D60CF9256EF7B500B430AE /* HM10Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HM10Device.swift; sourceTree = "<group>"; };
+		32D60CFF256F070600B430AE /* AT_PIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AT_PIO.swift; sourceTree = "<group>"; };
+		32D60D01256F0B4900B430AE /* AT_BAUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AT_BAUD.swift; sourceTree = "<group>"; };
+		32D60D03256F154100B430AE /* AT_ADC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AT_ADC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +89,7 @@
 		324B51D42568599D0039CD9C /* BleOnStageLib */ = {
 			isa = PBXGroup;
 			children = (
+				32D60CFE256F060700B430AE /* HM10DeviceCommands */,
 				324B520325685A350039CD9C /* CBPeripheral+Extension.swift */,
 				324B51FF25685A350039CD9C /* Device.swift */,
 				324B520125685A350039CD9C /* Scanner.swift */,
@@ -88,6 +97,7 @@
 				324B520025685A350039CD9C /* OnStageDevice.swift */,
 				324B51D52568599D0039CD9C /* BleOnStageLib.h */,
 				324B51D62568599D0039CD9C /* Info.plist */,
+				32D60CF9256EF7B500B430AE /* HM10Device.swift */,
 			);
 			path = BleOnStageLib;
 			sourceTree = "<group>";
@@ -99,6 +109,16 @@
 				324B51E22568599D0039CD9C /* Info.plist */,
 			);
 			path = BleOnStageLibTests;
+			sourceTree = "<group>";
+		};
+		32D60CFE256F060700B430AE /* HM10DeviceCommands */ = {
+			isa = PBXGroup;
+			children = (
+				32D60D01256F0B4900B430AE /* AT_BAUD.swift */,
+				32D60D03256F154100B430AE /* AT_ADC.swift */,
+				32D60CFF256F070600B430AE /* AT_PIO.swift */,
+			);
+			path = HM10DeviceCommands;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,11 +230,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32D60D04256F154100B430AE /* AT_ADC.swift in Sources */,
 				324B520725685A350039CD9C /* CBPeripheral+Extension.swift in Sources */,
 				324B520525685A350039CD9C /* Scanner.swift in Sources */,
+				32D60D00256F070600B430AE /* AT_PIO.swift in Sources */,
+				32D60D02256F0B4900B430AE /* AT_BAUD.swift in Sources */,
 				324B520425685A350039CD9C /* OnStageDevice.swift in Sources */,
 				324B520625685A350039CD9C /* Swift+Extensions.swift in Sources */,
 				324B520825685A350039CD9C /* Device.swift in Sources */,
+				32D60CFA256EF7B500B430AE /* HM10Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

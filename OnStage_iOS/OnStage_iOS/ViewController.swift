@@ -9,7 +9,7 @@
 import UIKit
 import BleOnStageLib
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,OnStageDeviceDelegate {
     var onStageDev = OnStageDevice()
     let defaults = UserDefaults.standard
     
@@ -22,9 +22,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var onStageEnable: UISwitch!
     @IBOutlet weak var onStageImage: UIImageView!
     
+    func onStage(didUpdatedState state: Bool) {
+        DispatchQueue.main.async(execute: {
+            self.lastStatus = state
+            self.onStageEnable.setOn(self.lastStatus, animated: true)
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        onStageDev.delegate = self
         blinkTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(blinkTimer_Update), userInfo: nil, repeats: true)
         
         
