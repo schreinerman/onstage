@@ -21,6 +21,8 @@ public protocol OnStageDeviceDelegate
 
 public class OnStageDevice:HM10Device
 {
+    private var updateTimer = Timer()
+    
     private var _lastState:OnStageState = .off
     
     private var _state:OnStageState = .off
@@ -42,6 +44,7 @@ public class OnStageDevice:HM10Device
     
     override public init() {
         super.init()
+        updateTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(requestStatus),userInfo: nil,repeats: true)
         DispatchQueue.main.async {
             self.atCommand.GetGpio(io:2,completion: self.dataRead)
         }
@@ -68,19 +71,31 @@ public class OnStageDevice:HM10Device
         delegate?.onStage(didUpdatedState: state)
     }
     
+    @objc func requestStatus()
+    {
+        DispatchQueue.main.async {
+            self.atCommand.GetGpio(io:2,completion: self.dataRead)
+        }
+    }
+    
+    public func reload()
+    {
+        DispatchQueue.main.async {
+            self.atCommand.GetGpio(io:2,completion: self.dataRead)
+        }
+    }
+    
     func stateUpdated()
     {
         if (_state == .on)
         {
             DispatchQueue.main.async {
                 self.atCommand.SetGpio(io:2,level:true,completion: self.dataSent)
-                //self.sendCommand(commandString: "AT+PIO21",completion: self.dataSent)
             }
         } else
         {
             DispatchQueue.main.async {
                 self.atCommand.SetGpio(io:2,level:false,completion: self.dataSent)
-                //self.sendCommand(commandString: "AT+PIO20",completion: self.dataSent)
             }
         }
     }

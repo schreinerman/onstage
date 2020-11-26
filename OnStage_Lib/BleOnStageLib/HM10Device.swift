@@ -156,6 +156,9 @@ public class HM10Device:NSObject,ScannerDelegate
     {
         if (commandQueue.items.count > 0)
         {
+            #if os(iOS)
+            registerBackgroundTask()
+            #endif
             self.tried = self.reties
             sendCommandDirect(command:commandQueue.dequeue())
         }
@@ -174,9 +177,9 @@ public class HM10Device:NSObject,ScannerDelegate
             if (initializing == false)
             {
                 initializing = true
+                timeoutCounter = 10
                 scanner.start()
             }
-            timeoutCounter = timeout
         }
     }
     
@@ -206,7 +209,10 @@ public class HM10Device:NSObject,ScannerDelegate
             {
                 self.selectedDevice = dev
                 self.selectedDevice?.delegate = self
-                selectedDevice?.connect()
+                if (self.connected == false)
+                {
+                    selectedDevice?.connect()
+                }
                 self.timeoutCounter = self.timeout
             }
         }
