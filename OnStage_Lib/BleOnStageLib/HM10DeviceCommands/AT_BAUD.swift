@@ -16,21 +16,26 @@ extension HM10DeviceAtCommand
             response in
             let str = String(decoding: response, as: UTF8.self)
             completion(Int(str) ?? 0)
+            return true
         })
     }
     
     public func SetBaudrate(baudrate:Int,completion: @escaping (_ response:Data) -> Void = { _ in })
     {
-        AT_BAUD_set(baudrate:baudrate,completion: completion)
+        AT_BAUD_set(baudrate:baudrate,completion: {
+            response in
+            completion(response)
+            return true
+        })
     }
     
-    public func AT_BAUD_get(completion: @escaping (_ response:Data) -> Void = { _ in })
+    public func AT_BAUD_get(completion: @escaping (_ response:Data) -> Bool = { _ in return true})
     {
         let output = "AT+BAUD?"
         self.delegate?.sendCommand(commandString: output,waitForResponse:true, completion: completion)
     }
     
-    public func AT_BAUD_set(baudrate:Int,completion: @escaping (_ response:Data) -> Void = { _ in })
+    public func AT_BAUD_set(baudrate:Int,completion: @escaping (_ response:Data) -> Bool = { _ in  return true})
     {
         let output = "AT+BAUD\(String(baudrate))"
         self.delegate?.sendCommand(commandString: output,completion: completion)

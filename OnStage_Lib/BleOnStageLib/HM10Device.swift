@@ -16,7 +16,8 @@ public struct HM10DeviceCommand
 {
     public var commandString:String = ""
     public var waitForResponse:Bool = false
-    public var completion: (_ response:Data) -> Void
+    public var completion: (_ response:Data) -> Bool
+    public var commandResponseString = "" //used to describe a valid response
 }
 
 public struct HM10DeviceCommandQueue
@@ -26,7 +27,7 @@ public struct HM10DeviceCommandQueue
         items.append(item)
     }
     mutating func enqueue(command: String) {
-        let item = HM10DeviceCommand(commandString:command,waitForResponse: false,completion: {_ in })
+        let item = HM10DeviceCommand(commandString:command,waitForResponse: false,completion: {_ in return true})
         items.append(item)
     }
     
@@ -45,7 +46,7 @@ public class HM10DeviceAtCommand:NSObject
 
 public class HM10Device:NSObject,ScannerDelegate
 {
-    public var name:String = "HMSoft"
+    public var name:String = "ON-STAGE" //HMSoft
     public var serviceString:String = "FFE0"
     public var characteristicString:String = "FFE1"
         
@@ -73,9 +74,9 @@ public class HM10Device:NSObject,ScannerDelegate
     
     private var commandQueue:HM10DeviceCommandQueue = HM10DeviceCommandQueue()
     
-    private var command:HM10DeviceCommand = HM10DeviceCommand(completion:{_ in})
+    private var command:HM10DeviceCommand = HM10DeviceCommand(completion:{_ in return true})
     
-    
+    public let dispatch = DispatchQueue(label: "HM10Device")
 
     private let scanner = Scanner()
     
@@ -136,7 +137,7 @@ public class HM10Device:NSObject,ScannerDelegate
         }
     }
     
-    public func sendCommand(commandString:String,waitForResponse: Bool = false, completion: @escaping (_ response:Data) -> Void = { _ in })
+    public func sendCommand(commandString:String,waitForResponse: Bool = false, completion: @escaping (_ response:Data) -> Bool = { _ in return true})
     {
         let command = HM10DeviceCommand(commandString: commandString, waitForResponse: waitForResponse, completion: completion)
         sendCommand(command:command)
@@ -263,7 +264,7 @@ extension HM10Device : DeviceDelegate {
             scanner.stop()
             if (!self.command.commandString.isEmpty)
             {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.dispatch.asyncAfter(deadline: .now() + 0.5, execute: {
                     self.sendData(command: self.command.commandString)
                 })
             }
@@ -277,20 +278,23 @@ extension HM10Device : DeviceDelegate {
                 let str = String(decoding: data, as: UTF8.self)
                 if (str.contains("OK+"))
                 {
-                    self.command.completion(data)
-                    self.command = HM10DeviceCommand(completion: { _ in })
-                    self.processingCommand = false
-                    
-                    if (commandQueue.items.count > 0)
+                    let commandSuccess = self.command.completion(data)
+                    if (commandSuccess)
                     {
-                        DispatchQueue.main.async {
-                            self.dequeueCommand()
+                        self.command = HM10DeviceCommand(completion: { _ in return true})
+                        self.processingCommand = false
+                        
+                        if (commandQueue.items.count > 0)
+                        {
+                            self.dispatch.async {
+                                self.dequeueCommand()
+                            }
+                            timeoutCounter = timeout
                         }
-                        timeoutCounter = timeout
-                    }
-                    else
-                    {
-                        timeoutCounter = keepOpenTimeout
+                        else
+                        {
+                            timeoutCounter = keepOpenTimeout
+                        }
                     }
                 }
             }
@@ -310,12 +314,12 @@ extension HM10Device : DeviceDelegate {
             initializing = false
             if (self.command.waitForResponse == false)
             {
-                self.command.completion(Data())
-                self.command = HM10DeviceCommand(completion: { _ in })
+                let _ = self.command.completion(Data())
+                self.command = HM10DeviceCommand(completion: { _ in return true})
                 self.processingCommand = false
                 if (commandQueue.items.count > 0)
                 {
-                    DispatchQueue.main.async {
+                    self.dispatch.async {
                         self.dequeueCommand()
                     }
                     timeoutCounter = timeout

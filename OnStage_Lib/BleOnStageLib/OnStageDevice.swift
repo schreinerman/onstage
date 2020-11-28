@@ -43,14 +43,14 @@ public class OnStageDevice:HM10Device
     }
     
     override public init() {
-        super.init()
+        super.init(name:"ON-STAGE")
         updateTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(requestStatus),userInfo: nil,repeats: true)
         DispatchQueue.main.async {
             self.atCommand.GetGpio(io:2,completion: self.dataRead)
         }
     }
     
-    func dataSent(response:Data)
+    func dataSent(io:Int,response:Data)
     {
         _lastState = _state
     }
