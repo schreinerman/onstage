@@ -272,7 +272,7 @@ extension HM10Device : DeviceDelegate {
             scanner.stop()
             if (!self.command.commandString.isEmpty)
             {
-                self.dispatch.asyncAfter(deadline: .now() + 0.5, execute: {
+                dispatchAsyncAfter(deadline: .now() + 0.5, execute: {
                     self.sendData(command: self.command.commandString)
                 })
             }
@@ -294,7 +294,7 @@ extension HM10Device : DeviceDelegate {
                         
                         if (commandQueue.items.count > 0)
                         {
-                            self.dispatch.async {
+                            dispatchAsync {
                                 self.dequeueCommand()
                             }
                             timeoutCounter = timeout
@@ -327,7 +327,7 @@ extension HM10Device : DeviceDelegate {
                 self.processingCommand = false
                 if (commandQueue.items.count > 0)
                 {
-                    self.dispatch.async {
+                    dispatchAsync {
                         self.dequeueCommand()
                     }
                     timeoutCounter = timeout
@@ -351,11 +351,20 @@ extension HM10Device
         let dpGroup = DispatchGroup()
         
         dpGroup.enter()
-        self.dispatch.async(execute: {
+        self.dispatchAsync(execute: {
             execute()
             dpGroup.leave()
         })
         return dpGroup.wait(timeout: timeout)
+    }
+    
+    func dispatchAsync(execute: @escaping ()->Void)
+    {
+        self.dispatch.async(execute: execute)
+    }
+    
+    func dispatchAsyncAfter(deadline: DispatchTime, execute: @escaping ()->Void) {
+        self.dispatch.asyncAfter(deadline:deadline, execute: execute)
     }
 }
 
