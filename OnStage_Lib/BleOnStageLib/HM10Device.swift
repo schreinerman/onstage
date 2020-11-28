@@ -51,10 +51,18 @@ public class HM10Device:NSObject,ScannerDelegate
     public var characteristicString:String = "FFE1"
         
     public var autoOpen:Bool = true
-    public var reties = 4
-    public var keepOpenTimeout = 2
-    public var timeout = 2
+    public var retries:Int = 4
+    public var keepOpenTimeout:CGFloat = 2
+    public var timeout:CGFloat = 2
     public var processingCommand:Bool = false
+    
+    public var maxTimeout:CGFloat
+    {
+        get
+        {
+            return CGFloat(retries) * timeout + keepOpenTimeout
+        }
+    }
     
     public var atCommand:HM10DeviceAtCommand = HM10DeviceAtCommand()
     
@@ -65,7 +73,7 @@ public class HM10Device:NSObject,ScannerDelegate
     private var selectedCharacteristic:CBCharacteristic?
     private var selectedCharacteristicRead:CBCharacteristic?
     
-    private var timeoutCounter = -1
+    private var timeoutCounter:CGFloat = -1
     private var timerConnection = Timer()
     private var queueTimer = Timer()
     
@@ -160,7 +168,7 @@ public class HM10Device:NSObject,ScannerDelegate
             #if os(iOS)
             registerBackgroundTask()
             #endif
-            self.tried = self.reties
+            self.tried = self.retries
             sendCommandDirect(command:commandQueue.dequeue())
         }
     }
@@ -336,3 +344,25 @@ extension HM10Device : DeviceDelegate {
     }
 }
 
+extension HM10Device
+{
+    @discardableResult func waitForAsyncProcess(timeout: DispatchTime = .now() + 5, execute: @escaping ()->Void) -> DispatchTimeoutResult
+    {
+        let dpGroup = DispatchGroup()
+        
+        dpGroup.enter()
+        self.dispatch.async(execute: {
+            execute()
+            dpGroup.leave()
+        })
+        return dpGroup.wait(timeout: timeout)
+    }
+}
+
+extension HM10DeviceAtCommand
+{
+    @discardableResult func waitForAsyncProcess(timeout: DispatchTime = .now() + 5, execute: @escaping ()->Void) -> DispatchTimeoutResult
+    {
+        return (self.delegate?.waitForAsyncProcess(timeout:timeout,execute:execute))!
+    }
+}
