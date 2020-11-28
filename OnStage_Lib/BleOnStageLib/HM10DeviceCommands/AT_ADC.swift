@@ -13,17 +13,12 @@ extension HM10DeviceAtCommand
     public func GetAdc(io:Int) -> CGFloat
     {
         var out:CGFloat = -1.0
-        
-        let dpGroup = DispatchGroup()
-        dpGroup.enter()
-        self.delegate?.dispatch.async {
+        waitForAsyncProcess(execute: {
             self.GetAdc(io:io,completion:{
                 response in
                 out = response
-                dpGroup.leave()
             })
-        }
-        let _ = dpGroup.wait(timeout: .now() + 5)
+        })
         return out
     }
     
