@@ -19,6 +19,8 @@
 		32D60D00256F070600B430AE /* AT_PIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D60CFF256F070600B430AE /* AT_PIO.swift */; };
 		32D60D02256F0B4900B430AE /* AT_BAUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D60D01256F0B4900B430AE /* AT_BAUD.swift */; };
 		32D60D04256F154100B430AE /* AT_ADC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D60D03256F154100B430AE /* AT_ADC.swift */; };
+		32D60D082572D95C00B430AE /* AT_RESET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D60D072572D95C00B430AE /* AT_RESET.swift */; };
+		32D60D0A2573115500B430AE /* AT_MPIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D60D092573115400B430AE /* AT_MPIO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		32D60CFF256F070600B430AE /* AT_PIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AT_PIO.swift; sourceTree = "<group>"; };
 		32D60D01256F0B4900B430AE /* AT_BAUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AT_BAUD.swift; sourceTree = "<group>"; };
 		32D60D03256F154100B430AE /* AT_ADC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AT_ADC.swift; sourceTree = "<group>"; };
+		32D60D072572D95C00B430AE /* AT_RESET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AT_RESET.swift; sourceTree = "<group>"; };
+		32D60D092573115400B430AE /* AT_MPIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AT_MPIO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +118,11 @@
 		32D60CFE256F060700B430AE /* HM10DeviceCommands */ = {
 			isa = PBXGroup;
 			children = (
-				32D60D01256F0B4900B430AE /* AT_BAUD.swift */,
 				32D60D03256F154100B430AE /* AT_ADC.swift */,
+				32D60D01256F0B4900B430AE /* AT_BAUD.swift */,
 				32D60CFF256F070600B430AE /* AT_PIO.swift */,
+				32D60D092573115400B430AE /* AT_MPIO.swift */,
+				32D60D072572D95C00B430AE /* AT_RESET.swift */,
 			);
 			path = HM10DeviceCommands;
 			sourceTree = "<group>";
@@ -235,8 +241,10 @@
 				324B520525685A350039CD9C /* Scanner.swift in Sources */,
 				32D60D00256F070600B430AE /* AT_PIO.swift in Sources */,
 				32D60D02256F0B4900B430AE /* AT_BAUD.swift in Sources */,
+				32D60D0A2573115500B430AE /* AT_MPIO.swift in Sources */,
 				324B520425685A350039CD9C /* OnStageDevice.swift in Sources */,
 				324B520625685A350039CD9C /* Swift+Extensions.swift in Sources */,
+				32D60D082572D95C00B430AE /* AT_RESET.swift in Sources */,
 				324B520825685A350039CD9C /* Device.swift in Sources */,
 				32D60CFA256EF7B500B430AE /* HM10Device.swift in Sources */,
 			);
